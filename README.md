@@ -6,8 +6,11 @@ write a smart contract that implements the require(), assert() and revert() stat
 
 ## Description  
 The SimpleAddition contract in Solidity facilitates adding two positive integers with error handling:
+
 require: Ensures both inputs are positive before updating the sum.
+
 revert: Checks if the stored sum matches a provided value; reverts if not, with an error.
+
 assert: Verifies that the addition result is greater than both inputs for correctness before updating the sum.
 
 ## Getting Started
