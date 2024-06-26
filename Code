@@ -1,0 +1,29 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract UniqueContract {
+    uint256 public data;
+    address public contractOwner;
+
+    constructor() {
+        contractOwner = msg.sender; // Set the deployer as the initial contract owner
+    }
+
+    function updateData(uint256 newData) public {
+        // Ensure the new data is positive
+        require(newData > 0, "Data must be greater than zero");
+        data = newData;
+    }
+
+    function ownerOnlyFunction() public view {
+        // Custom error handling for restricted access
+        if (msg.sender != contractOwner) {
+            revert("Access denied: Only the contract owner can call this function");
+        }
+    }
+
+    function verifyCondition() public view {
+        // Use assert to check for conditions that must always be true
+        assert(data > 0);
+    }
+}
