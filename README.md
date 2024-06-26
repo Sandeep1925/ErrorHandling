@@ -5,7 +5,10 @@ Solidity Error Handling
 write a smart contract that implements the require(), assert() and revert() statements.
 
 ## Description  
-The UniqueContract is a simple Solidity contract that demonstrates the use of require(), assert(), and revert() statements. It allows updating a positive data value and restricts certain functions to the contract owner. The updateData function ensures the new value is positive using require(), while ownerOnlyFunction restricts access using revert(). The verifyCondition function uses assert() to ensure data remains positive. The contract is initialized with the deployer as the contractOwner.
+The SimpleAddition contract in Solidity facilitates adding two positive integers with error handling:
+require: Ensures both inputs are positive before updating the sum.
+revert: Checks if the stored sum matches a provided value; reverts if not, with an error.
+assert: Verifies that the addition result is greater than both inputs for correctness before updating the sum.
 
 ## Getting Started
 
@@ -18,30 +21,36 @@ Once you are on the Remix website, create a new file by clicking on the "+" icon
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract UniqueContract {
-    uint256 public data;
-    address public contractOwner;
+contract SimpleAddition {
+    uint256 public sum;
 
-    constructor() {
-        contractOwner = msg.sender; // Set the deployer as the initial contract owner
+    // Function to add two positive integers using require
+    function addWithRequire(uint256 a, uint256 b) public {
+        // Ensure both numbers are positive
+        require(a > 0 && b > 0, "Both numbers must be positive");
+
+        // Perform the addition and update the sum state variable
+        sum = a + b;
     }
 
-    function updateData(uint256 newData) public {
-        // Ensure the new data is positive
-        require(newData > 0, "Data must be greater than zero");
-        data = newData;
-    }
-
-    function ownerOnlyFunction() public view {
-        // Custom error handling for restricted access
-        if (msg.sender != contractOwner) {
-            revert("Access denied: Only the contract owner can call this function");
+    // Function to demonstrate revert
+    function checkSumWithRevert(uint256 value) public view {
+        // Check if the sum is equal to the provided value
+        if (sum != value) {
+            revert("Sum does not match the provided value");
         }
     }
 
-    function verifyCondition() public view {
-        // Use assert to check for conditions that must always be true
-        assert(data > 0);
+    // Function to perform addition and ensure conditions using assert
+    function addWithAssert(uint256 a, uint256 b) public {
+        // Perform the addition
+        uint256 result = a + b;
+
+        // Ensure the result is greater than both inputs
+        assert(result > a && result > b);
+
+        // Update the sum state variable
+        sum = result;
     }
 }
 
