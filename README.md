@@ -64,7 +64,7 @@ Deploy the contract using your preferred Ethereum development environment
 
 #### For Remix:    
 Open Remix IDE.  
-Upload MyToken.sol.  
+Upload ErrorHandling.sol.  
 Compile and deploy the contract.  
 
 
